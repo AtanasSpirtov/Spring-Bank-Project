@@ -23,9 +23,9 @@ public class AccountController extends _BaseController {
     }
 
     @GetMapping("/delete")
-    public ResponseEntity<MessageDTO> deleteAccount(@RequestParam Long id) {
+    public ResponseEntity<MessageDTO> deleteAccount(@RequestParam String name) {
         logger.info("Entering delete account ...");
-        accountService.deleteAccount(id);
+        accountService.deleteAccount(name);
         return new ResponseEntity<>(new MessageDTO("OK"), HttpStatus.OK);
     }
     @PostMapping("/AccountById")

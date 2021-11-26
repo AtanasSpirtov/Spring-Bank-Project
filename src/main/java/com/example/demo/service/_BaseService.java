@@ -8,4 +8,8 @@ public class _BaseService {
     @PersistenceContext
     protected EntityManager em;
 
+    public EntityManager getEntityManager() {
+        return this.em;
+    }
+
 }

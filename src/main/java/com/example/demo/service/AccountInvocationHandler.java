@@ -37,9 +37,9 @@ public class AccountInvocationHandler implements InvocationHandler {
 
             return cache.containsKey(args[0]) ? cache.get(args[0]) : accountService.findById((Long) args[0]);
         } else if ("deleteAccount".equals(method.getName())) {
-            accountService.deleteAccount((Long) args[0]);
-            if (cache.containsKey(args[0])) {
-                cache.remove(args[0]);
+            Account deletedAccount = accountService.deleteAccount((String) args[0]);
+            if (cache.containsKey(deletedAccount.getId())) {
+                cache.remove(deletedAccount.getId());
             }
             return null;
         }

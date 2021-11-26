@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
 import java.math.BigDecimal;
 import java.time.LocalTime;
@@ -32,5 +33,10 @@ public class TransactionServiceImpl extends _BaseService implements TransactionS
     public List<Transaction> listAllTransactions(Long searchById) {
         return  em.createQuery("select t from Transaction t where t.recipientAccount.id = :pSearchById", Transaction.class)
                 .setParameter("pSearchById" , searchById).setMaxResults(100).getResultList();
+    }
+
+    @Override
+    public EntityManager getEntityManager() {
+        return super.getEntityManager();
     }
 }
