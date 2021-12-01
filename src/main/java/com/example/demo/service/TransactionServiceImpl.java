@@ -5,7 +5,6 @@ import com.example.demo.model.Transaction;
 import com.example.demo.model.TransactionType;
 import com.example.demo.service.api.TransactionService;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;

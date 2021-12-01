@@ -2,7 +2,6 @@ package com.example.demo.service;
 
 import com.example.demo.model.Account;
 import com.example.demo.service.api.AccountService;
-import jdk.dynalink.linker.LinkerServices;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -13,7 +12,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class AccountInvocationHandler implements InvocationHandler {
-    private static final int CACHE_SIZE = 3;
+    private static final int CACHE_SIZE = 50;
 
     private Map<Long, Account> cache;
 
@@ -27,16 +26,16 @@ public class AccountInvocationHandler implements InvocationHandler {
         List<Account> list = accountService.getEntityManager().createQuery("select a from Account a" , Account.class).
                 setMaxResults(CACHE_SIZE).getResultList();
 
-        cache = list.stream().collect(Collectors.toMap(Account::getId , Function.identity()));
+        cache = list.parallelStream().collect(Collectors.toMap(Account::getId , Function.identity()));
     }
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args)
             throws Throwable {
         if ("findById".equals(method.getName())) {
-
             return cache.containsKey(args[0]) ? cache.get(args[0]) : accountService.findById((Long) args[0]);
-        } else if ("deleteAccount".equals(method.getName())) {
+        }
+        else if ("deleteAccount".equals(method.getName())) {
             Account deletedAccount = accountService.deleteAccount((String) args[0]);
             if (cache.containsKey(deletedAccount.getId())) {
                 cache.remove(deletedAccount.getId());
