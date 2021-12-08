@@ -2,8 +2,11 @@
 1. This is simple bank project with basic jdbc authentication security
 
 2. You can download and test functionalities via swagger
+
 2.1 You can add or remove account or search account by its id
+
 2.2 You can create transaction, between two accounts or list all transaction of given source account
+
 2.3 You can see results of listing in pdf or excel file
 
 3. When you try to test functionality it will require username and password
