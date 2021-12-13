@@ -4,7 +4,6 @@ import com.example.demo.fileConverter.ExcelConverter;
 import com.example.demo.fileConverter.PdfConverter;
 import com.example.demo.fileConverter._BaseConverter;
 import com.itextpdf.text.DocumentException;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +38,6 @@ public class ListInFilesController extends _BaseController {
     }
 
     @GetMapping(value = "/PdfReport")
-    @PreAuthorize("hasAuthority('admin')")
     public void pdfReport(HttpServletResponse response, boolean isZipped) throws IOException, DocumentException {
         if(isZipped)
         {

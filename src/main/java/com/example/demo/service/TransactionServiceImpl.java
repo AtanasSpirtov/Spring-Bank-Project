@@ -30,7 +30,7 @@ public class TransactionServiceImpl extends _BaseService implements TransactionS
     }
 
     public List<Transaction> listAllTransactions(Long searchById) {
-        return  em.createQuery("select t from Transaction t where t.recipientAccount.id = :pSearchById", Transaction.class)
+        return  em.createQuery("select t from Transaction t where t.sourceAccount.id = :pSearchById", Transaction.class)
                 .setParameter("pSearchById" , searchById).setMaxResults(100).getResultList();
     }
 

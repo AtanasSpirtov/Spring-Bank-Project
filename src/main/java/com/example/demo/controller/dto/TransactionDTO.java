@@ -6,18 +6,18 @@ import java.math.BigDecimal;
 
 public class TransactionDTO {
 
-    private Account recipientAccount;
-
     private Account sourceAccount;
+
+    private Account recipientAccount;
 
     private BigDecimal transactionAmount;
 
-    public BigDecimal getTransactionAmount() {
-        return transactionAmount;
+    public Account getSourceAccount() {
+        return sourceAccount;
     }
 
-    public void setTransactionAmount(BigDecimal transactionAmount) {
-        this.transactionAmount = transactionAmount;
+    public void setSourceAccount(Account sourceAccount) {
+        this.sourceAccount = sourceAccount;
     }
 
     public Account getRecipientAccount() {
@@ -28,11 +28,11 @@ public class TransactionDTO {
         this.recipientAccount = recipientAccount;
     }
 
-    public Account getSourceAccount() {
-        return sourceAccount;
+    public BigDecimal getTransactionAmount() {
+        return transactionAmount;
     }
 
-    public void setSourceAccount(Account sourceAccount) {
-        this.sourceAccount = sourceAccount;
+    public void setTransactionAmount(BigDecimal transactionAmount) {
+        this.transactionAmount = transactionAmount;
     }
 }
