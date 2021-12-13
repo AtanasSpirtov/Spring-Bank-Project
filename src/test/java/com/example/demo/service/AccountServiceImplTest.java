@@ -37,8 +37,4 @@ class AccountServiceImplTest {
         Account account = accountService.findById(1L);
         assertThat(account.getName()).isEqualTo("stancho");
     }
-
-    @Test
-    void getEntityManager() {
-    }
 }
