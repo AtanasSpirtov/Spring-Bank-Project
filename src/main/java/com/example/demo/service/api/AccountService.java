@@ -9,4 +9,6 @@ public interface AccountService {
     Account deleteAccount(String name);
     Account findById(Long id);
     EntityManager getEntityManager();
+
+    Account findByName(String accountName);
 }
