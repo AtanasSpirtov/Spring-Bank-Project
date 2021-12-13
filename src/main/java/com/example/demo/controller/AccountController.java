@@ -2,38 +2,44 @@ package com.example.demo.controller;
 
 import com.example.demo.controller.dto.AccountDTO;
 import com.example.demo.controller.dto.MessageDTO;
-import com.example.demo.controller.dto.TransactionDTO;
 import com.example.demo.model.Account;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
-
 @Controller
 @RequestMapping("/accountManaging")
 public class AccountController extends _BaseController {
-    @GetMapping("/create")
-    public ResponseEntity<MessageDTO> createAccount(@RequestParam String name, @RequestParam BigDecimal balance) {
+
+    @PostMapping("/create")
+    public ResponseEntity<MessageDTO> createAccount(Account account) {
         logger.info("Entering create account ...");
-        accountService.createAccount(name , balance);
+        accountService.createAccount(account.getName() , account.getBalance());
         return new ResponseEntity<>(new MessageDTO("OK"), HttpStatus.OK);
     }
 
-    @GetMapping("/delete")
+    @PostMapping("/delete")
     public ResponseEntity<MessageDTO> deleteAccount(@RequestParam String name) {
         logger.info("Entering delete account ...");
         accountService.deleteAccount(name);
         return new ResponseEntity<>(new MessageDTO("OK"), HttpStatus.OK);
     }
-    @PostMapping("/AccountById")
+    @GetMapping("/accountById/{accountId}")
     public @ResponseBody
-    ResponseEntity<AccountDTO> accountById(@RequestParam Long accountId) {
+    ResponseEntity<AccountDTO> accountById(@PathVariable("accountId") Long accountId) {
 
         logger.info("Entering searchingAccount");
         Account searchedAccount =  accountService.findById(accountId);
+        return new ResponseEntity<>(
+                modelMapper.map(searchedAccount, AccountDTO.class), HttpStatus.OK);
+    }
+    @GetMapping("/accountByName/{accountName}")
+    public @ResponseBody
+    ResponseEntity<AccountDTO> accountByName(@PathVariable("accountName") String accountName) {
+
+        logger.info("Entering searchingAccount");
+        Account searchedAccount =  accountService.findByName(accountName);
         return new ResponseEntity<>(
                 modelMapper.map(searchedAccount, AccountDTO.class), HttpStatus.OK);
     }
