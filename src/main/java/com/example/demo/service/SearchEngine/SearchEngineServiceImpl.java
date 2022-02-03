@@ -13,13 +13,12 @@ public class SearchEngineServiceImpl extends _BaseService implements SearchEngin
     public List<String> searchByKeyWord(String word) {
         List<String> wordsInDatabase;
         List<String> possibleWords = new ArrayList<>();
-        wordsInDatabase =  em.createNativeQuery("Select words from key_words_for_search_engine").getResultList();
+        wordsInDatabase = em.createNativeQuery("Select words from key_words_for_search_engine").getResultList();
 
         wordsInDatabase.parallelStream().forEach(wordInDatabase -> {
             int wordMistakes = 0;
             for (int j = 0; j < wordInDatabase.length(); j++) {
-                if(word.length() != wordInDatabase.length())
-                {
+                if (word.length() != wordInDatabase.length()) {
                     //makes word not to be added to possibleWords
                     wordMistakes = 3;
                     break;

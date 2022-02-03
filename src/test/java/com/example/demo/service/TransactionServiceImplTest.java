@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -28,11 +29,17 @@ class TransactionServiceImplTest {
     AccountService accountService;
 
     @Test
+    @Transactional
     void transferMoney() {
         transactionService.transferMoney(1L, 4L, BigDecimal.valueOf(10));
-        Transaction transaction = transactionService.getEntityManager()
+        Transaction creditTransaction = transactionService.getEntityManager()
                 .createQuery("select t from Transaction t where t.recipientAccount.id = 4 and t.sourceAccount.id = 1", Transaction.class).getSingleResult();
-        assertThat(transaction).isNotEqualTo(null);
+        Transaction debitTransaction = transactionService.getEntityManager()
+                .createQuery("select t from Transaction t where t.recipientAccount.id = 1 and t.sourceAccount.id = 4", Transaction.class).getSingleResult();
+        assertThat(creditTransaction).isNotNull();
+        assertThat(debitTransaction).isNotNull();
+        transactionService.getEntityManager().remove(creditTransaction);
+        transactionService.getEntityManager().remove(debitTransaction);
     }
 
 //    @Test
