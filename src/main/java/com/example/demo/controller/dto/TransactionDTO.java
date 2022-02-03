@@ -1,30 +1,24 @@
 package com.example.demo.controller.dto;
 
-import com.example.demo.model.Account;
-
 import java.math.BigDecimal;
 
 public class TransactionDTO {
 
-    private Account sourceAccount;
+    private AccountDTO sourceAccount;
 
-    private Account recipientAccount;
+    private AccountDTO recipientAccount;
 
     private BigDecimal transactionAmount;
 
-    public Account getSourceAccount() {
-        return sourceAccount;
-    }
+    public AccountDTO getSourceAccount() {return sourceAccount;}
 
-    public void setSourceAccount(Account sourceAccount) {
-        this.sourceAccount = sourceAccount;
-    }
+    public void setSourceAccount(AccountDTO sourceAccount) {this.sourceAccount = sourceAccount;}
 
-    public Account getRecipientAccount() {
+    public AccountDTO getRecipientAccount() {
         return recipientAccount;
     }
 
-    public void setRecipientAccount(Account recipientAccount) {
+    public void setRecipientAccount(AccountDTO recipientAccount) {
         this.recipientAccount = recipientAccount;
     }
 
