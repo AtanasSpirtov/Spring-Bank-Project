@@ -24,11 +24,12 @@ class TransactionServiceImplTest {
     TransactionService transactionService;
 
     @Autowired
+    @Qualifier("WithProxy")
     AccountService accountService;
 
     @Test
     void transferMoney() {
-        transactionService.transferMoney(1L , 4L , BigDecimal.valueOf(10));
+        transactionService.transferMoney(1L, 4L, BigDecimal.valueOf(10));
         Transaction transaction = transactionService.getEntityManager()
                 .createQuery("select t from Transaction t where t.recipientAccount.id = 4 and t.sourceAccount.id = 1", Transaction.class).getSingleResult();
         assertThat(transaction).isNotEqualTo(null);
