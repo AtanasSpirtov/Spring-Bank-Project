@@ -2,7 +2,6 @@ package com.example.demo.controller;
 
 import com.example.demo.controller.dto.TransactionDTO;
 import com.example.demo.controller.dto.MessageDTO;
-import com.example.demo.model.Transaction;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,10 +17,8 @@ import java.util.stream.Collectors;
 public class BankController extends _BaseController {
 
 
-    @PostMapping(value = "/create",
-            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
-    )
-    public ResponseEntity<MessageDTO> create(@RequestBody Transaction transaction) {
+    @PostMapping(value = "/create")
+    public @ResponseBody ResponseEntity<MessageDTO> create(@RequestBody TransactionDTO transaction) {
         //Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         logger.info("Entering create ...");
         transactionService.transferMoney(transaction.getSourceAccount().getId(), transaction.getRecipientAccount().getId(), transaction.getTransactionAmount());
@@ -29,8 +26,7 @@ public class BankController extends _BaseController {
     }
 
     @GetMapping("/allTransactionsByAccount/{accountId}")
-    public @ResponseBody
-    ResponseEntity<List<TransactionDTO>> allTransactionsByAccount(@PathVariable("accountId") Long accountId) {
+    public @ResponseBody ResponseEntity<List<TransactionDTO>> allTransactionsByAccount(@PathVariable("accountId") Long accountId) {
         HttpHeaders headers = new HttpHeaders();
 
         logger.info("Entering list all transactions ...");
