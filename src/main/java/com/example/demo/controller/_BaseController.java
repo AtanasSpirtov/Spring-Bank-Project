@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.controller.dto.MessageDTO;
+import com.example.demo.service.SearchEngine.SearchEngineService;
 import com.example.demo.service.api.AccountService;
 import com.example.demo.service.api.TransactionService;
 import org.modelmapper.ModelMapper;
@@ -25,4 +26,7 @@ public class _BaseController {
 
     @Autowired
     ModelMapper modelMapper;
+
+    @Autowired
+    SearchEngineService searchEngineService;
 }
