@@ -1,7 +1,8 @@
 # Spring-Bank-Project
 1. This is simple bank project with basic jdbc authentication security
 
-2. You can download and test functionalities via swagger
+2. You can download and test functionalities via swagger or 
+you can download Angular-frontend and this project and run them both if you want to test functionality via angular client
 
 2.1 You can add or remove account or search account by its id
 
@@ -13,6 +14,4 @@
 Download the database and inside it there is a default user
 When security wants username and password type nasko for username and nasko for password
 after that you can access every method which you want
-
-Now i am working on frontend of this application.I am going to use angular for it.
 
