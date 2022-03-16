@@ -18,7 +18,7 @@ public class BankConfiguration {
 
 
     @Bean(name = "WithProxy")
-    public AccountService withProxy( AccountServiceImpl accountService) {
+    public AccountService withProxy(AccountServiceImpl accountService) {
         AccountInvocationHandler accountInvocationHandler = new AccountInvocationHandler(accountService);
         return (AccountService) Proxy.newProxyInstance(AccountServiceImpl.class.getClassLoader(), new Class[]{AccountService.class}, accountInvocationHandler);
     }

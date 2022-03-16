@@ -1,10 +1,8 @@
 package com.example.demo.service;
 
-import com.example.demo.model.Account;
 import com.example.demo.model.Transaction;
 import com.example.demo.service.api.AccountService;
 import com.example.demo.service.api.TransactionService;
-import org.hibernate.type.descriptor.java.LocalDateTimeJavaDescriptor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,11 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.stream.Stream;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class TransactionServiceImplTest {

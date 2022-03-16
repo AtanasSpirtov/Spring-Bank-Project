@@ -18,6 +18,10 @@ public class Account extends _BaseEntity {
     public Account() {
     }
 
+    public Account(String name) {
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }
