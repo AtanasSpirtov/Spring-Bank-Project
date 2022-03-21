@@ -27,13 +27,12 @@ public class BankController extends _BaseController {
 
     @GetMapping("/allTransactionsByAccount/{accountId}")
     public @ResponseBody ResponseEntity<List<TransactionDTO>> allTransactionsByAccount(@PathVariable("accountId") Long accountId) {
-        HttpHeaders headers = new HttpHeaders();
 
         logger.info("Entering list all transactions ...");
 
         return new ResponseEntity<>(
                 transactionService.listAllTransactions(accountId).parallelStream()
                         .map(transaction -> modelMapper.map(transaction, TransactionDTO.class))
-                        .collect(Collectors.toList()), HttpStatus.OK);
+                        .toList(), HttpStatus.OK);
     }
 }

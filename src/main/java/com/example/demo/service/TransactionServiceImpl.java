@@ -33,9 +33,4 @@ public class TransactionServiceImpl extends _BaseService implements TransactionS
         return  em.createQuery("select t from Transaction t where t.sourceAccount.id = :pSearchById", Transaction.class)
                 .setParameter("pSearchById" , searchById).setMaxResults(100).getResultList();
     }
-
-    @Override
-    public EntityManager getEntityManager() {
-        return super.getEntityManager();
-    }
 }

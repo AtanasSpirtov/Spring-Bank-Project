@@ -23,13 +23,13 @@ class AccountServiceImplTest {
         accountService.createAccount("Ico", BigDecimal.valueOf(200));
         Account account = accountService.getEntityManager().createQuery("select a from Account a where a.name =: pName", Account.class)
                 .setParameter("pName", "Ico").getSingleResult();
-        assertThat(account).isNotEqualTo(null);
+        assertThat(account).isNotNull();
     }
 
     @Test
     void deleteAccount() {
         Account account = accountService.deleteAccount("Ico");
-        assertThat(account).isEqualTo(null);
+        assertThat(account).isNull();
     }
 
     @Test

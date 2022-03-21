@@ -18,6 +18,8 @@ import java.util.zip.ZipOutputStream;
 @RequestMapping("/ViewInFile")
 public class ListInFilesController extends _BaseController {
 
+    public static final String CONTENT_DISPOSITION = "Content-Disposition";
+
     @GetMapping(value = "/ExcelReport", produces = "application/zip")
     public void excelReport(HttpServletResponse response, boolean isZipped) throws IOException, DocumentException {
         if (isZipped) {
@@ -25,13 +27,13 @@ public class ListInFilesController extends _BaseController {
             ZipEntry entry = new ZipEntry("transactions.xlsx");
             zipOutputStream.putNextEntry(entry);
             response.setContentType("application/zip");
-            response.setHeader("Content-Disposition", "attachment; filename=transactions.zip");
+            response.setHeader(CONTENT_DISPOSITION, "attachment; filename=transactions.zip");
             ((_BaseConverter) new ExcelConverter(transactionService.listAllTransactions(1L)))
                     .export(zipOutputStream);
             zipOutputStream.close();
         } else {
             response.setContentType("application/vnd.ms-excel");
-            response.setHeader("Content-Disposition", "attachment; filename=transactions.xlsx");
+            response.setHeader(CONTENT_DISPOSITION, "attachment; filename=transactions.xlsx");
             ((_BaseConverter) new ExcelConverter(transactionService.listAllTransactions(1L)))
                     .export(response.getOutputStream());
         }
@@ -45,14 +47,14 @@ public class ListInFilesController extends _BaseController {
             ZipEntry entry = new ZipEntry("transactions.pdf");
             zipOutputStream.putNextEntry(entry);
             response.setContentType("application/zip");
-            response.setHeader("Content-Disposition", "attachment; filename=transactions.zip");
+            response.setHeader(CONTENT_DISPOSITION, "attachment; filename=transactions.zip");
             ((_BaseConverter) new PdfConverter(transactionService.listAllTransactions(1L)))
                     .export(zipOutputStream);
             zipOutputStream.close();
         }
         else {
             response.setContentType("application/pdf");
-            response.setHeader("Content-Disposition", "attachment; filename=transactions.pdf");
+            response.setHeader(CONTENT_DISPOSITION, "attachment; filename=transactions.pdf");
 
             ((_BaseConverter) new PdfConverter(transactionService.listAllTransactions(1L))).export(response.getOutputStream());
         }

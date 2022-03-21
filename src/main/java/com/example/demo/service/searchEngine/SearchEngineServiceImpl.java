@@ -32,7 +32,6 @@ public class SearchEngineServiceImpl extends _BaseService implements SearchEngin
                 possibleAccounts.add(account);
             }
         });
-        System.out.println();
         return possibleAccounts;
     }
 }

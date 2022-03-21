@@ -38,11 +38,6 @@ public class AccountServiceImpl extends _BaseService implements AccountService {
     }
 
     @Override
-    public EntityManager getEntityManager() {
-        return super.getEntityManager();
-    }
-
-    @Override
     public Account findByName(String accountName) {
         return em.createQuery("select a from Account a where a.name=:pName " , Account.class)
                 .setParameter("pName" , accountName)

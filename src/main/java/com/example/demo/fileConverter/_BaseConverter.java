@@ -10,7 +10,7 @@ import java.util.List;
 public abstract class _BaseConverter {
     protected final List<Transaction> listTransaction;
 
-    public _BaseConverter(List<Transaction> listTransaction) {
+    protected _BaseConverter(List<Transaction> listTransaction) {
         this.listTransaction = listTransaction;
     }
     public abstract void export(OutputStream out) throws DocumentException, IOException;

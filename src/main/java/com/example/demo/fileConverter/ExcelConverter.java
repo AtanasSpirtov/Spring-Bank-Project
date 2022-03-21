@@ -17,17 +17,16 @@ public class ExcelConverter extends _BaseConverter{
 
     @Override
     public void export(OutputStream out) throws IOException {
-       Workbook workbook = new XSSFWorkbook();
+        try (Workbook workbook = new XSSFWorkbook()) {
             Sheet sheet = workbook.createSheet("transactions.xlsx");
 
             Row headerRow = sheet.createRow(0);
-                headerRow.createCell(0).setCellValue("Id");
-                headerRow.createCell(1).setCellValue("Source account");
-                headerRow.createCell(2).setCellValue("Recipient account");
-                headerRow.createCell(3).setCellValue("Amount");
+            headerRow.createCell(0).setCellValue("Id");
+            headerRow.createCell(1).setCellValue("Source account");
+            headerRow.createCell(2).setCellValue("Recipient account");
+            headerRow.createCell(3).setCellValue("Amount");
             int rowIdx = 1;
-            for (Transaction transaction : listTransaction)
-            {
+            for (Transaction transaction : listTransaction) {
                 Row row = sheet.createRow(rowIdx++);
 
                 row.createCell(0).setCellValue(transaction.getSourceAccount().getId());
@@ -36,6 +35,6 @@ public class ExcelConverter extends _BaseConverter{
                 row.createCell(3).setCellValue(transaction.getTransactionAmount().toString());
             }
             workbook.write(out);
-            workbook.close();
+        }
     }
 }
