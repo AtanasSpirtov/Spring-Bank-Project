@@ -24,9 +24,10 @@ public class PdfConverter extends _BaseConverter{
         document.open();
         Paragraph paragraph = new Paragraph("List All Transaction", font);
         paragraph.setAlignment(Paragraph.ALIGN_CENTER);
-
         document.add(paragraph);
 
+        document.add(new Paragraph("source => recipient : amount : TransDate : Type" , font));
+        document.add(new Paragraph("----------------------------------------------------------" , font));
         for (Transaction transaction : listTransaction) {
             document.add(new Chunk(transaction.transactionToString(), font));
         }

@@ -35,10 +35,10 @@ public class Transaction extends _BaseEntity {
 
     public String transactionToString() {
         return new StringBuilder(1000)
-                .append(sourceAccount.getName()).append(" ")
-                .append(recipientAccount.getName()).append(" ")
-                .append(transactionAmount.toString()).append(" ")
-                .append(transactionTime.toString()).append(" ")
+                .append(sourceAccount.getName()).append(" => ")
+                .append(recipientAccount.getName()).append(" : ")
+                .append(transactionAmount.toString()).append(" : ")
+                .append(transactionTime.toString()).append(" : ")
                 .append(transactionType.toString()).append("\n").toString();
     }
 
@@ -60,5 +60,25 @@ public class Transaction extends _BaseEntity {
 
     public void setSourceAccount(Account sourceAccount) {
         this.sourceAccount = sourceAccount;
+    }
+
+    public void setTransactionAmount(BigDecimal transactionAmount) {
+        this.transactionAmount = transactionAmount;
+    }
+
+    public LocalTime getTransactionTime() {
+        return transactionTime;
+    }
+
+    public void setTransactionTime(LocalTime transactionTime) {
+        this.transactionTime = transactionTime;
+    }
+
+    public TransactionType getTransactionType() {
+        return transactionType;
+    }
+
+    public void setTransactionType(TransactionType transactionType) {
+        this.transactionType = transactionType;
     }
 }

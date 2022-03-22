@@ -25,10 +25,10 @@ public class SecurityApplicationConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/register").anonymous()
+                .antMatchers("/login" , "/logout" , "/register").permitAll()
                 .anyRequest().authenticated()
-                .and().
-                httpBasic();
+                .and()
+                .httpBasic();
     }
 
     @Override
