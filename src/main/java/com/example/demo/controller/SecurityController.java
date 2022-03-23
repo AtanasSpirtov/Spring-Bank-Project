@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class SecurityController extends _BaseController{
+
     @GetMapping("/login")
     @ResponseBody public ResponseEntity<MessageDTO> login() {
 
@@ -16,7 +17,7 @@ public class SecurityController extends _BaseController{
         return new ResponseEntity<>(new MessageDTO("Authenticated Successfully"), HttpStatus.OK);
     }
 
-    @GetMapping("/logout")
+    @GetMapping("/loggingOut")
     @ResponseBody public ResponseEntity<MessageDTO> logout() {
 
         logger.info("Entering logout ...");

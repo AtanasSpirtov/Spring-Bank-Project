@@ -4,8 +4,8 @@ import com.example.demo.fileConverter.ExcelConverter;
 import com.example.demo.fileConverter.PdfConverter;
 import com.example.demo.fileConverter._BaseConverter;
 import com.itextpdf.text.DocumentException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,6 +18,7 @@ import java.util.zip.ZipOutputStream;
 
 @Controller
 @RequestMapping("/ViewInFile")
+@PreAuthorize("hasAuthority('admin')")
 public class ListInFilesController extends _BaseController {
 
     public static final String CONTENT_DISPOSITION = "Content-Disposition";

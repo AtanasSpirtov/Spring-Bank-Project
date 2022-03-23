@@ -2,24 +2,24 @@ package com.example.demo.controller;
 
 import com.example.demo.controller.dto.TransactionDTO;
 import com.example.demo.controller.dto.MessageDTO;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/transaction")
+//@PreAuthorize("hasAuthority('admin')")
 public class BankController extends _BaseController {
 
 
+    //@PreAuthorize("hasRole = 'admin'")
     @PostMapping(value = "/create")
     public @ResponseBody ResponseEntity<MessageDTO> create(@RequestBody TransactionDTO transaction) {
-        //Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         logger.info("Entering create ...");
         transactionService.transferMoney(transaction.getSourceAccount().getId(), transaction.getRecipientAccount().getId(), transaction.getTransactionAmount());
         return new ResponseEntity<>(new MessageDTO("OK"), HttpStatus.OK);

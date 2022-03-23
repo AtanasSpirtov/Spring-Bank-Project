@@ -5,11 +5,13 @@ import com.example.demo.controller.dto.MessageDTO;
 import com.example.demo.model.Account;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/accountManaging")
+@PreAuthorize("hasAuthority('admin')")
 public class AccountController extends _BaseController {
 
     @PostMapping("/create")
