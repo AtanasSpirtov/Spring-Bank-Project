@@ -7,7 +7,7 @@
 
 2. When you open project you will see folder called `Database`
 
-3. you will see some Files with .sql
+3. you will see some files ending with .sql
 
 4. Open workbench or other Mysql visual tool for database architect.
 
