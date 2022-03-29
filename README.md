@@ -11,9 +11,9 @@
 
 4. Open workbench or other Mysql visual tool for database architect.
 
-5. Create schema called transactionmanager and type `use transactionmanager`
+5. Create schema called transactionmanager, create query, type `use transactionmanager` and execute query
 
-6. Open every file in folder Database from point 3. , copy all the content , paste it and execute the query
+6. Create query for every file in folder Database from point 3. , copy all the content , paste it and execute the query
 
 7. When you executed all of the files in Database folder go to `src/main/resources/application.properties` and open it
 
