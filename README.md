@@ -17,7 +17,7 @@
 
 7. When you executed all of the files in Database folder go to `src/main/resources/application.properties` and open it
 
-8. Change `spring.datasource.username=?` and `spring.datasource.password=?` where `?` is your local username in the first case and you local password in the second case
+8. Change `spring.datasource.username=?` and `spring.datasource.password=?` where `?` is your Local Mysql Connection username in the first case and you Local Mysql Connection password in the second case
 
 9. After you finish go back to your project and run it
 
