@@ -12,18 +12,16 @@ public class User extends _BaseEntity {
 
     private String email;
 
-    @ManyToMany(targetEntity = Role.class ,fetch = FetchType.EAGER)
+    @ManyToMany(targetEntity = Role.class ,fetch = FetchType.EAGER , cascade = CascadeType.ALL)
     private Set<Role> roles;
 
     @OneToOne
     private Account account;
 
-    public User(String username , String password , String email , Set<Role> roles , Account account) {
+    public User(String username , String password , String email) {
         this.password = password;
         this.username = username;
         this.email = email;
-        this.roles = roles;
-        this.account = account;
     }
 
     public User() {}
@@ -50,11 +48,11 @@ public class User extends _BaseEntity {
         this.email = email;
     }
 
-    public Set<Role> getAuthorities() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setAuthorities(Set<Role> authorities) {
-        this.roles = authorities;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }

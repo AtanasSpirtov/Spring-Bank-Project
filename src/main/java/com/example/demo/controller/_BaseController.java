@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.service.api.UserSignService;
 import com.example.demo.service.searchEngine.SearchEngineService;
 import com.example.demo.service.api.AccountService;
 import com.example.demo.service.api.TransactionService;
@@ -25,4 +26,7 @@ public class _BaseController {
 
     @Autowired
     SearchEngineService searchEngineService;
+
+    @Autowired
+    UserSignService usrService;
 }

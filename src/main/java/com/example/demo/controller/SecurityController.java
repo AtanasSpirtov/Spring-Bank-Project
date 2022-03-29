@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
 import com.example.demo.controller.dto.MessageDTO;
+import com.example.demo.controller.dto.UserDTO;
+import com.example.demo.model.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,5 +25,12 @@ public class SecurityController extends _BaseController{
         logger.info("Entering logout ...");
         SecurityContextHolder.getContext().setAuthentication(null);
         return new ResponseEntity<>(new MessageDTO("Logged out Successfully"), HttpStatus.OK);
+    }
+
+    @PostMapping("/signUp")
+    @ResponseBody public ResponseEntity<MessageDTO> signUp(@RequestBody UserDTO userDTO) {
+        logger.info("Entering signingUp ...");
+        usrService.signedUpUser(new User(userDTO.getUsername() , userDTO.getEmail() , userDTO.getPassword()));
+        return new ResponseEntity<>(new MessageDTO("SignedUp Successfully"), HttpStatus.OK);
     }
 }

@@ -1,9 +1,5 @@
 package com.example.demo.controller.dto;
 
-import com.example.demo.model.Role;
-
-import java.util.Set;
-
 public class UserDTO {
     private String username;
 

@@ -13,11 +13,9 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/transaction")
-//@PreAuthorize("hasAuthority('admin')")
+@PreAuthorize("hasAuthority('admin')")
 public class BankController extends _BaseController {
 
-
-    //@PreAuthorize("hasRole = 'admin'")
     @PostMapping(value = "/create")
     public @ResponseBody ResponseEntity<MessageDTO> create(@RequestBody TransactionDTO transaction) {
         logger.info("Entering create ...");
