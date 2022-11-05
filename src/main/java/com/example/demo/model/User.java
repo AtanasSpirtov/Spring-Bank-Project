@@ -1,10 +1,15 @@
 package com.example.demo.model;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Collection;
 import java.util.Set;
 
 @Entity
-public class User extends _BaseEntity {
+public class User extends _BaseEntity implements Serializable {
 
     private String username;
 
@@ -30,10 +35,6 @@ public class User extends _BaseEntity {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getPassword() {return password;}
 
     public void setPassword(String password) {
@@ -54,5 +55,15 @@ public class User extends _BaseEntity {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Collection<? extends GrantedAuthority> getRolesAsSimpleGrantedAuthorities() {
+        return this.roles.stream().flatMap(role ->
+                role.getAuthority().stream().map(authority ->
+                        new SimpleGrantedAuthority(authority.getAuthorityName()))).toList();
     }
 }
