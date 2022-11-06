@@ -5,6 +5,7 @@ import com.example.demo.controller.dto.MessageDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +14,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/transaction")
-@PreAuthorize("hasAuthority('admin')")
+@PreAuthorize("hasAuthority('makeAll')")
 public class BankController extends _BaseController {
 
     @PostMapping(value = "/create")
@@ -28,6 +29,7 @@ public class BankController extends _BaseController {
 
         logger.info("Entering list all transactions ...");
 
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return new ResponseEntity<>(
                 transactionService.listAllTransactions(accountId).parallelStream()
                         .map(transaction -> modelMapper.map(transaction, TransactionDTO.class))

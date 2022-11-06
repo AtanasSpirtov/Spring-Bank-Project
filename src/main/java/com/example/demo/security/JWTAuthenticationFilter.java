@@ -3,8 +3,9 @@ package com.example.demo.security;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.example.demo.controller.dto.UserDTO;
-import com.example.demo.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -22,7 +23,10 @@ import java.util.Date;
 import static com.example.demo.security.SecurityConstants.*;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+    public static final String USER_INFORMATION_HEADER = "User-Information";
     private final AuthenticationManager authenticationManager;
+
+    protected static Logger logger = LoggerFactory.getLogger("JWT");
 
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
@@ -34,8 +38,12 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public Authentication attemptAuthentication(HttpServletRequest req,
                                                 HttpServletResponse res) throws AuthenticationException {
         try {
+            String userInformationHeader = req.getHeader(USER_INFORMATION_HEADER);
+
+            logger.info("Attempting authentication with user credentials {}", userInformationHeader);
+
             UserDTO credentials = new ObjectMapper()
-                    .readValue(req.getHeader("UserInformation"), UserDTO.class);
+                    .readValue(userInformationHeader, UserDTO.class);
 
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
@@ -52,14 +60,16 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     protected void successfulAuthentication(HttpServletRequest req,
                                             HttpServletResponse res,
                                             FilterChain chain,
-                                            Authentication auth) throws IOException {
+                                            Authentication auth) {
+        Object principal = auth.getPrincipal();
+        logger.info("Generating token with Prefix: {} , with Principal: {} , with Secret: {} , for time: {}",
+                TOKEN_PREFIX, principal, SECRET, EXPIRATION_TIME);
 
         StringBuilder token = new StringBuilder(TOKEN_PREFIX).append(JWT.create()
-                .withSubject(((UserDetails) auth.getPrincipal()).getUsername())
+                .withSubject(((UserDetails) principal).getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .sign(Algorithm.HMAC512(SECRET.getBytes())));
 
-        res.getWriter().write(token.toString());
-        res.getWriter().flush();
+        res.addHeader(SECURITY_HEADER_NAME, token.toString());
     }
 }
