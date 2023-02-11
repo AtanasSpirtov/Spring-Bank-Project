@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/accountManaging")
-@PreAuthorize("hasAuthority('admin')")
 public class AccountController extends _BaseController {
 
     @PostMapping("/create")
+    @PreAuthorize("hasAuthority('makeAll')")
     public ResponseEntity<MessageDTO> createAccount(Account account) {
         logger.info("Entering create account ...");
         accountService.createAccount(account.getName() , account.getBalance());
@@ -22,12 +22,14 @@ public class AccountController extends _BaseController {
     }
 
     @PostMapping("/delete")
+    @PreAuthorize("hasAuthority('makeAll')")
     public ResponseEntity<MessageDTO> deleteAccount(@RequestParam String name) {
         logger.info("Entering delete account ...");
         accountService.deleteAccount(name);
         return new ResponseEntity<>(new MessageDTO("OK"), HttpStatus.OK);
     }
     @GetMapping("/accountById/{accountId}")
+    @PreAuthorize("hasAuthority('makeAll')")
     public @ResponseBody
     ResponseEntity<AccountDTO> accountById(@PathVariable("accountId") Long accountId) {
 
@@ -37,6 +39,7 @@ public class AccountController extends _BaseController {
                 modelMapper.map(searchedAccount, AccountDTO.class), HttpStatus.OK);
     }
     @GetMapping("/accountByName/{accountName}")
+    @PreAuthorize("hasAuthority('makeAll') or hasAuthority('createTransactions')")
     public @ResponseBody
     ResponseEntity<AccountDTO> accountByName(@PathVariable("accountName") String accountName) {
 

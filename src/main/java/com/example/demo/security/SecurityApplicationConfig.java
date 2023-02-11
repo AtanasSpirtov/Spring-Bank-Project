@@ -33,7 +33,8 @@ public class SecurityApplicationConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/login", "/user/save", "/loggingOut").permitAll()
+                .antMatchers("/login", "/loggingOut").permitAll()
+                .antMatchers("/user/create").permitAll()
                 .anyRequest().authenticated()
                 .and().
                 addFilter(new JWTAuthenticationFilter(authenticationManager()))

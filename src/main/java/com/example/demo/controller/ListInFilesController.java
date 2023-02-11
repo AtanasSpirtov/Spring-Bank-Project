@@ -18,7 +18,7 @@ import java.util.zip.ZipOutputStream;
 
 @Controller
 @RequestMapping("/ViewInFile")
-@PreAuthorize("hasAuthority('admin')")
+@PreAuthorize("hasAuthority('makeAll')")
 public class ListInFilesController extends _BaseController {
 
     public static final String CONTENT_DISPOSITION = "Content-Disposition";

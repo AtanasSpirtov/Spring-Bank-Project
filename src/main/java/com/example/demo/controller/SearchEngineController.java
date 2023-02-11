@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @Controller
-@PreAuthorize("hasAuthority('admin')")
+@PreAuthorize("hasAuthority('makeAll')")
 public class SearchEngineController extends _BaseController{
     @GetMapping("/searchByName/{word}")
     public @ResponseBody ResponseEntity<List<Account>> searching(@PathVariable String word) {

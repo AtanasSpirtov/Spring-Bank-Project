@@ -14,7 +14,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/transaction")
-@PreAuthorize("hasAuthority('makeAll')")
+@PreAuthorize("hasAuthority('createTransactions')")
 public class BankController extends _BaseController {
 
     @PostMapping(value = "/create")
@@ -29,7 +29,6 @@ public class BankController extends _BaseController {
 
         logger.info("Entering list all transactions ...");
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return new ResponseEntity<>(
                 transactionService.listAllTransactions(accountId).parallelStream()
                         .map(transaction -> modelMapper.map(transaction, TransactionDTO.class))

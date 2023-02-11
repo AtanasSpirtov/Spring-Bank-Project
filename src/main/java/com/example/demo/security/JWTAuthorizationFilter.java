@@ -34,10 +34,14 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
                                     FilterChain chain) throws IOException, ServletException {
         String header = req.getHeader(SECURITY_HEADER_NAME);
 
+        String defaultURL = "http://localhost:8080";
         logger.info("Authorizing request with token: {}", header);
 
         if (header == null || !header.startsWith(TOKEN_PREFIX)) {
             logger.error("Invalid token format");
+            chain.doFilter(req, res);
+            return;
+        } else if(defaultURL.concat(SIGN_UP_URL).equals(req.getRequestURL().toString())){
             chain.doFilter(req, res);
             return;
         }
