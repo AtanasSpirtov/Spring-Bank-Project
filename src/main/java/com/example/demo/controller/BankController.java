@@ -14,10 +14,11 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/transaction")
-@PreAuthorize("hasAuthority('createTransactions')")
 public class BankController extends _BaseController {
 
     @PostMapping(value = "/create")
+    @PreAuthorize("hasAuthority('createTransactions')")
+
     public @ResponseBody ResponseEntity<MessageDTO> create(@RequestBody TransactionDTO transaction) {
         logger.info("Entering create ...");
         transactionService.transferMoney(transaction.getSourceAccount().getId(), transaction.getRecipientAccount().getId(), transaction.getTransactionAmount());
@@ -25,6 +26,7 @@ public class BankController extends _BaseController {
     }
 
     @GetMapping("/allTransactionsByAccount/{accountId}")
+    @PreAuthorize("hasAuthority('makeAll')")
     public @ResponseBody ResponseEntity<List<TransactionDTO>> allTransactionsByAccount(@PathVariable("accountId") Long accountId) {
 
         logger.info("Entering list all transactions ...");
