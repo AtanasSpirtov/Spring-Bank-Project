@@ -1,5 +1,5 @@
 # Spring-Bank-Project
-2. This is a simple spring boot project with basic JDBC authentication security and some functionalities
+2. This is a simple spring boot project for transactions and accounts with basic JWT authentication which support two roles and some functionalities
 
 # How to download:
 
